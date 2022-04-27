@@ -1,0 +1,19 @@
+{
+    "pos": {
+        "search": "Search",
+            "configuration": "Configuration",
+            "language": "Language",
+        "theme": {
+            "name": "Theme",
+            "light": "Light",
+            "dark": "Dark"
+        },
+        "lang":{
+            "en":"English",
+            "vi":"VietNamese"
+        },
+        "dashboard":{
+            "name":"Dashboard"
+        }
+    }
+}
