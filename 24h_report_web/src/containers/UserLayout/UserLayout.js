@@ -24,7 +24,6 @@ class UserLayout extends Component {
 
         <div className="app-body">
           <main className="main">
-            <AppBreadcrumb appRoutes={routes} />
             <Container fluid>
               <Switch>
                 {routes.map((route, idx) => {

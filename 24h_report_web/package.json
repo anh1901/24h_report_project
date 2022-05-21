@@ -2,6 +2,9 @@
   "name": "24h_report_web",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.15.5"
+  },
   "dependencies": {
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
     "@coreui/coreui-pro": "^2.0.3",
@@ -13,13 +16,14 @@
     "@testing-library/user-event": "^13.5.0",
     "babel-eslint": "9.0.0",
     "bad-words-plus": "^3.0.4",
-    "bootstrap": "^4.1.1",
+    "bootstrap": "^4.6.1",
     "chart.js": "^2.7.2",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
     "eslint": "5.12.0",
     "flag-icon-css": "^3.0.0",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.6.0",
     "mdbreact": "^4.6.1",
     "react": "^16.4.0",
     "react-bootstrap-table": "^4.3.1",

@@ -28,7 +28,7 @@ export const Container = styled.div`
       border: 2px solid #1c54fc;
 
       @media (min-width: 768px) {
-        width: 40%;
+        width: 20%;
       }
     `}
 `;
