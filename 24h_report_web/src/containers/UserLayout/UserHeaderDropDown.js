@@ -6,8 +6,8 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  Progress,
 } from "reactstrap";
+import axiosClient from "../../api/axiosClient";
 
 const propTypes = {
   notif: PropTypes.bool,
@@ -21,6 +21,21 @@ const defaultProps = {
   tasks: false,
   mssgs: false,
 };
+const user_info = JSON.parse(localStorage.getItem("user_info"));
+async function logout() {
+  try {
+    localStorage.removeItem("user_info");
+    window.location.reload();
+    // await axiosClient.post("/logout", null, {
+    //   headers: {
+    //     token: user_info.refreshToken,
+    //   },
+    // });
+    // this.props.history.push("/");
+  } catch (e) {
+    alert(e.message);
+  }
+}
 
 class UserHeaderDropdown extends Component {
   constructor(props) {
@@ -101,7 +116,7 @@ class UserHeaderDropdown extends Component {
             <i className="fa fa-wrench"></i> Settings
           </DropdownItem>
           <DropdownItem divider />
-          <DropdownItem>
+          <DropdownItem onClick={logout}>
             <i className="fa fa-lock"></i> Logout
           </DropdownItem>
         </DropdownMenu>

@@ -21,6 +21,21 @@ const defaultProps = {
   tasks: false,
   mssgs: false,
 };
+const user_info = JSON.parse(localStorage.getItem("user_info"));
+async function logout() {
+  try {
+    localStorage.removeItem("user_info");
+    window.location.reload();
+    // await axiosClient.post("/logout", null, {
+    //   headers: {
+    //     token: user_info.refreshToken,
+    //   },
+    // });
+    // this.props.history.push("/");
+  } catch (e) {
+    alert(e.message);
+  }
+}
 
 class AdminHeaderDropdown extends Component {
   constructor(props) {
@@ -116,8 +131,7 @@ class AdminHeaderDropdown extends Component {
             src="https://i.guim.co.uk/img/media/fe1e34da640c5c56ed16f76ce6f994fa9343d09d/0_174_3408_2046/master/3408.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=0d3f33fb6aa6e0154b7713a00454c83d"
             className="img-avatar"
             alt="anhwtuan@gmail.com"
-                />
-                
+          />
         </DropdownToggle>
         <DropdownMenu right>
           <DropdownItem header tag="div" className="text-center">
@@ -160,7 +174,7 @@ class AdminHeaderDropdown extends Component {
           <DropdownItem>
             <i className="fa fa-shield"></i> Lock Account
           </DropdownItem>
-          <DropdownItem>
+          <DropdownItem onClick={logout}>
             <i className="fa fa-lock"></i> Logout
           </DropdownItem>
         </DropdownMenu>

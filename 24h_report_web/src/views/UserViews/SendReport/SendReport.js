@@ -18,12 +18,9 @@ import "quill/dist/quill.snow.css";
 //react-select
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import { CFormInput } from "@coreui/react-pro";
 
 const animatedComponents = makeAnimated();
 //testing
-var Filter = require("bad-words-plus");
-var filter = new Filter({ regex: /[\p{L}-]/u });
 //multiple select option mock data
 const options = [
   { value: "1", label: "Đề nghị làm nhà phân phối" },

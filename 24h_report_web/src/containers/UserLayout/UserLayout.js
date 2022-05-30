@@ -2,28 +2,27 @@ import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 
-import { AppBreadcrumb, AppHeader } from "@coreui/react";
+import { AppHeader } from "@coreui/react";
 // routes config
 import routes from "../../routes";
-
 import UserFooter from "./UserFooter";
-import UserHeader from "./UserHeader";
+// import UserHeader from "./UserHeader";
 import { Home } from "../../views";
 import GuestHeader from "./GuestHeader";
+import UserHeader from "./UserHeader";
 
 class UserLayout extends Component {
   render() {
+    const user_info = localStorage.getItem("user_info");
+
     return (
       <div className="app">
         <AppHeader fixed>
-          {/* Logged in */}
-          {/* <UserHeader /> */}
-          {/* Not logged in */}
-          <GuestHeader />
+          {user_info ? <UserHeader /> : <GuestHeader />}
         </AppHeader>
 
         <div className="app-body">
-          <main className="main">
+          <main className="main ">
             <Container fluid>
               <Switch>
                 {routes.map((route, idx) => {
