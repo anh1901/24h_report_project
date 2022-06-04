@@ -57,7 +57,12 @@ class App extends Component {
           <Route path="/reports/pending" name="Pending Reports" component={AdminLayout} />
           <Route path="/reports/approved" name="Approved Reports" component={AdminLayout} />
           <Route path="/reports/denied" name="Denied Reports" component={AdminLayout} />
-          <Route path="/posts" name="Posts" component={AdminLayout} />
+          <Route path="/create-post" name="Create Post" component={AdminLayout} />
+          <Route path="/crafted-posts" name="Crafted Posts" component={AdminLayout} />
+          <Route path="/published-posts" name="Published Posts" component={AdminLayout} />
+          <Route path="/unpublished-posts" name="Unpublished Posts" component={AdminLayout} />
+          <Route path="/my-tasks" name="My Tasks" component={AdminLayout} />
+          <Route path="/tasks-management" name="Tasks management" component={AdminLayout} />
 
           {/*  */}
           <Route exact path="/404" name="Page 404" component={Page404} />

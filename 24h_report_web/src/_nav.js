@@ -84,11 +84,15 @@ export default {
       icon: "icon-pencil",
     },
     {
-      name: "Bài viết",
-      url: "/posts",
+      name: "Tạo bài viết",
+      url: "/create-post",
       icon: "icon-pencil",
     },
-
+    {
+      name: "Bài viết nháp",
+      url: "/crafted-posts",
+      icon: "icon-pencil",
+    },
     {
       title: true,
       name: "Editor Manager",
@@ -99,10 +103,16 @@ export default {
       class: "",
     },
     {
-      name: "Quản lý bài viết",
-      url: "/posts-management",
+      name: "Bài viết chưa đăng",
+      url: "/unpublished-posts",
       icon: "icon-pencil",
     },
+    {
+      name: "Bài viết đã đăng",
+      url: "/published-posts",
+      icon: "icon-pencil",
+    },
+    
     {
       name: "Quản lí công việc",
       url: "/tasks-management",
