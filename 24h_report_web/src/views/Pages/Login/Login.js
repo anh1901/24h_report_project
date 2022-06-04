@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import {
   Button,
   Card,
@@ -15,10 +14,8 @@ import {
   Row,
 } from "reactstrap";
 import { useFormik } from "formik";
-import axiosClient from "../../../api/axiosClient";
-import postApi from "../../../api/postApi";
+
 import loginApi from "../../../api/loginApi";
-import axios from "axios";
 
 const Login = (props) => {
   const { history } = props;
@@ -75,8 +72,15 @@ const Login = (props) => {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("user_info")) {
-      history.push("/");
+    const user_info = JSON.parse(localStorage.getItem("user_info"));
+    if (user_info !== null) {
+      if (user_info.roleId === 1) {
+        history.push("/");
+        window.location.reload();
+      } else {
+        history.push("/admin");
+        window.location.reload();
+      }
     }
   }, []);
 

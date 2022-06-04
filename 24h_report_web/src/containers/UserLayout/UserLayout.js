@@ -6,19 +6,27 @@ import { AppHeader } from "@coreui/react";
 // routes config
 import routes from "../../routes";
 import UserFooter from "./UserFooter";
-// import UserHeader from "./UserHeader";
 import { Home } from "../../views";
 import GuestHeader from "./GuestHeader";
 import UserHeader from "./UserHeader";
+import AdminHeader from "../AdminLayout/AdminHeader";
 
 class UserLayout extends Component {
   render() {
-    const user_info = localStorage.getItem("user_info");
+    const user_info = JSON.parse(localStorage.getItem("user_info"));
 
     return (
       <div className="app">
         <AppHeader fixed>
-          {user_info ? <UserHeader /> : <GuestHeader />}
+          {user_info !== null ? (
+            user_info.roleId === 1 ? (
+              <UserHeader />
+            ) : (
+              <AdminHeader />
+            )
+          ) : (
+            <GuestHeader />
+          )}
         </AppHeader>
 
         <div className="app-body">

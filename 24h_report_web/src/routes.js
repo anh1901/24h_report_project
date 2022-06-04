@@ -37,8 +37,20 @@ const Users = Loadable({
   loader: () => import("./views/AdminViews/Users"),
   loading: Loading,
 });
-const Reports = Loadable({
-  loader: () => import("./views/AdminViews/Reports"),
+const NewReports = Loadable({
+  loader: () => import("./views/AdminViews/Reports/NewReports"),
+  loading: Loading,
+});
+const PendingReports = Loadable({
+  loader: () => import("./views/AdminViews/Reports/PendingReports"),
+  loading: Loading,
+});
+const ApprovedReports = Loadable({
+  loader: () => import("./views/AdminViews/Reports/ApprovedReports"),
+  loading: Loading,
+});
+const DeniedReports = Loadable({
+  loader: () => import("./views/AdminViews/Reports/DeniedReports"),
   loading: Loading,
 });
 const Posts = Loadable({
@@ -87,10 +99,28 @@ const routes = [
     component: Users,
   },
   {
-    path: "/reports",
+    path: "/reports/new",
     name: "Reports",
     role: ["Admin", "Editor", "Editor Manager"],
-    component: Reports,
+    component: NewReports,
+  },
+  {
+    path: "/reports/pending",
+    name: "Reports",
+    role: ["Admin", "Editor", "Editor Manager"],
+    component: PendingReports,
+  },
+  {
+    path: "/reports/approved",
+    name: "Reports",
+    role: ["Admin", "Editor", "Editor Manager"],
+    component: ApprovedReports,
+  },
+  {
+    path: "/reports/denied",
+    name: "Reports",
+    role: ["Admin", "Editor", "Editor Manager"],
+    component: DeniedReports,
   },
   {
     path: "/posts",

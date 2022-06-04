@@ -31,12 +31,7 @@ export default function LastestPost() {
                 <div class="card border-0 rounded-0 text-white overflow zoom">
                   <div class="position-relative">
                     <div class="ratio_right-cover-2 image-wrapper">
-                      <Link
-                        to={{
-                          pathname: `/postDetail`,
-                          query: { postId: `${post.postId}` },
-                        }}
-                      >
+                      <Link to={`/postDetail/${post.postId}`}>
                         <img
                           style={{
                             width: "100%",

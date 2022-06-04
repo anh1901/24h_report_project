@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import {
   Card,
@@ -9,191 +9,233 @@ import {
   Col,
   Input,
   Form,
-  Row,
   Button,
   FormText,
 } from "reactstrap";
 import "@coreui/coreui-pro/dist/css/coreui.min.css";
 import "quill/dist/quill.snow.css";
 //react-select
-import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import useLocationForm from "./useLocationForm";
+import Select from "react-select";
+import reportApi from "../../../api/reportApi";
 
 const animatedComponents = makeAnimated();
 //testing
 //multiple select option mock data
-const options = [
-  { value: "1", label: "Đề nghị làm nhà phân phối" },
-  { value: "2", label: "Mạo danh các nhà mạng, cơ quan nhà nước" },
-  { value: "3", label: "Hack tài khoản mạng xã hội để lừa đảo" },
-  { value: "4", label: "Ứng dụng lừa đảo" },
-  { value: "5", label: "Link clip, hình ảnh nóng" },
-  { value: "6", label: "Tặng quà từ nước ngoài" },
-  { value: "7", label: "Thông báo của ngân hàng" },
-  { value: "8", label: "Khác..." },
-];
 
-const initialText = "Viết chi tiết ở đây";
-class SendReport extends Component {
-  constructor(props) {
-    super(props);
-    this.toggle = this.toggle.bind(this);
-    this.toggleFade = this.toggleFade.bind(this);
-    this.state = {
-      collapse: true,
-      fadeIn: true,
-      timeout: 300,
-    };
-    //
-    this.state = { text: initialText }; // You can also pass a Quill Delta here
-    this.handleChange = this.handleChange.bind(this);
-    this.modules = {
-      toolbar: [
-        ["bold", "italic", "underline", "strike"], // toggled buttons
-        ["blockquote", "code-block"],
-        [{ header: 1 }, { header: 2 }], // custom button values
-        [{ list: "ordered" }, { list: "bullet" }],
-        [{ script: "sub" }, { script: "super" }], // superscript/subscript
-        [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-        [{ direction: "rtl" }], // text direction
-        [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-        [{ font: [] }],
-        [{ align: [] }],
-        ["clean"], // remove formatting button
-      ],
-    };
-  }
+const SendReport = (props) => {
+  const user_info = JSON.parse(localStorage.getItem("user_info"));
+  const { history } = props;
+  const [text, setText] = useState("Viết ở đây");
+  const [address, setAddress] = useState("");
+  const [isChecked, setIsCheck] = useState(false);
+  const [isAnonymous, setIsAnonymous] = useState(false);
+  const { state, onCitySelect, onDistrictSelect, onWardSelect } =
+    useLocationForm(true);
 
-  handleChange(value) {
-    this.setState({ text: value });
-  }
+  const {
+    cityOptions,
+    districtOptions,
+    wardOptions,
+    selectedCity,
+    selectedDistrict,
+    selectedWard,
+  } = state;
 
-  toggle() {
-    this.setState({ collapse: !this.state.collapse });
-  }
-
-  toggleFade() {
-    this.setState((prevState) => {
-      return { fadeIn: !prevState };
-    });
-  }
-  //multiple select
-
-  handleInputChange = (inputValue, actionMeta) => {
-    console.group("Input Changed");
-    console.log(inputValue);
-    console.log(`action: ${actionMeta.action}`);
-    console.groupEnd();
+  // Text box
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike"], // toggled buttons
+      ["blockquote", "code-block"],
+      [{ header: 1 }, { header: 2 }], // custom button values
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ script: "sub" }, { script: "super" }], // superscript/subscript
+      [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+      [{ direction: "rtl" }], // text direction
+      [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
+      ["clean"], // remove formatting button
+    ],
   };
-
-  render() {
-    return (
-      <Card style={{ height: "auto" }}>
-        <CardHeader>
-          Chi tiết báo cáo
-          <div className="card-header-actions">
-            <small className="text-muted">Xin hãy viết đúng sự việc</small>
-          </div>
-        </CardHeader>
-        <CardBody>
-          <Form
-            action=""
-            method="post"
-            encType="multipart/form-data"
-            className="form-horizontal"
-          >
-            <FormGroup row>
-              <Col md="2">
-                <Label htmlFor="name">Tên:</Label>
-              </Col>
-              <Col>
-                <Input
-                  type="text"
-                  id="name"
-                  placeholder="Nhập tên nếu muốn..."
-                  required
-                />
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Col md="2">
-                <Label htmlFor="selectSm">
-                  Trường hợp bạn gặp<i style={{ color: "red" }}>*</i>
-                </Label>
-              </Col>
-              <Col>
-                <Select
-                  closeMenuOnSelect={false}
-                  components={animatedComponents}
-                  isMulti
-                  options={options}
-                />
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Col md="2">
-                <Label>Thông tin đối tượng:</Label>
-              </Col>
-              <Col>
-                <Input
-                  type="text"
-                  id="name"
-                  placeholder="Nhập thông tin đối tượng..."
-                />
-              </Col>
-            </FormGroup>
-            {/* File Upload */}
-            <FormGroup row>
-              <Col md="2">
-                <Label for="file">File đính kèm</Label>
-              </Col>
-              <Col>
-                <Input id="file" name="file" type="file" />
-                <FormText>
-                  Lưu ý:{" "}
-                  <i>Dung lượng hình ảnh không quá 5MB, video không quá 50MB</i>
-                </FormText>
-              </Col>
-            </FormGroup>
-            {/* Detail */}
-            <FormGroup>
-              <ReactQuill
-                value={this.state.text}
-                modules={this.modules}
-                style={{
-                  height: "100px",
-                  marginBottom:
-                    window.innerWidth < 505
-                      ? "7rem"
-                      : 505 < window.innerWidth && window.innerWidth < 650
-                      ? "6rem"
-                      : 650 < window.innerWidth && window.innerWidth < 1250
-                      ? "4rem"
-                      : "2rem",
-                }}
+  const handle_submit = async () => {
+    try {
+      const params = {
+        location:
+          address +
+          ", " +
+          state.selectedCity.label +
+          ", " +
+          state.selectedDistrict.label +
+          ", " +
+          state.selectedWard.label,
+        timeFraud: new Date().toLocaleString(),
+        description: text,
+        video: "not yet",
+        image: "not yet",
+        isAnonymous: isAnonymous,
+      };
+      console.log(params);
+      const response = await reportApi.send(params);
+      console.log(response);
+      if (!JSON.stringify(response).includes("error")) {
+        alert("Gửi thành công");
+        history.push("/viewReport");
+      } else {
+        alert("Gửi thất bại");
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+  const handleCheck = (event) => {
+    setIsCheck(event.target.checked);
+  };
+  const handleAnonymous = (event) => {
+    setIsAnonymous(event.target.checked);
+  };
+  const handle_address = (event) => {
+    setAddress(event.target.value);
+  };
+  useEffect(() => {
+    // fetchCategoryList();
+  }, []);
+  return (
+    <Card
+      className="mt-2 ml-2 mr-2 pt-2 pr-2 pl-2 pb-2"
+      style={{ height: "auto" }}
+    >
+      <CardHeader>
+        Chi tiết báo cáo{" "}
+        <b>
+          ----------------Đang làm tạm thời chưa xài
+          được---------------------------
+        </b>
+        <div className="card-header-actions">
+          <small className="text-muted">Xin hãy viết đúng sự việc</small>
+        </div>
+      </CardHeader>
+      <CardBody>
+        <FormGroup row>
+          <Col md="2">
+            <Label>Vị trí:</Label>
+          </Col>
+          <Col md="8">
+            <div className="row pl-3">
+              <Input
+                className="mr-5 input-lg col-md-3"
+                type="text"
+                id="address"
+                value={address}
+                onChange={handle_address}
+                placeholder="Vị trí vụ việc..."
               />
-            </FormGroup>
-            {/* Chấp nhập điều khoản */}
-            <FormGroup check inline style={{ paddingTop: "1rem" }}>
-              <Input type="checkbox" />
-              <Label check>
-                <i style={{ color: "red" }}>* </i>
-                Tôi hoàn toàn chịu trách nhiệm về thông tin báo báo theo{" "}
-                <a href="#">điều khoản sử dụng</a>
-              </Label>
-            </FormGroup>
-            <FormGroup inline>
-              <Button onClick={() => {}} color="primary">
-                <b>Gửi báo cáo</b>
-              </Button>
-            </FormGroup>
-          </Form>
-        </CardBody>
-      </Card>
-    );
-  }
-}
+              <Select
+                className="pr-5 "
+                name="cityId"
+                isDisabled={cityOptions.length === 0}
+                options={cityOptions}
+                onChange={(option) => onCitySelect(option)}
+                placeholder="Tỉnh/Thành"
+                defaultValue={selectedCity}
+              />
+
+              <Select
+                className="pr-5"
+                name="districtId"
+                isDisabled={districtOptions.length === 0}
+                options={districtOptions}
+                onChange={(option) => onDistrictSelect(option)}
+                placeholder="Quận/Huyện"
+                defaultValue={selectedDistrict}
+              />
+              <Select
+                className="pr-5"
+                name="wardId"
+                isDisabled={wardOptions.length === 0}
+                options={wardOptions}
+                placeholder="Phường/Xã"
+                onChange={(option) => onWardSelect(option)}
+                defaultValue={selectedWard}
+              />
+            </div>
+          </Col>
+        </FormGroup>
+        {/* File Upload */}
+        <FormGroup row>
+          <Col md="2">
+            <Label for="file">File đính kèm</Label>
+          </Col>
+          <Col>
+            <Input id="file" name="file" type="file" />
+            <FormText>
+              Lưu ý:{" "}
+              <i>Dung lượng hình ảnh không quá 5MB, video không quá 50MB</i>
+            </FormText>
+          </Col>
+        </FormGroup>
+        {/* Detail */}
+        <FormGroup>
+          <ReactQuill
+            value={text}
+            modules={modules}
+            style={{
+              height: "20rem",
+              marginBottom:
+                window.innerWidth < 505
+                  ? "7rem"
+                  : 505 < window.innerWidth && window.innerWidth < 650
+                  ? "6rem"
+                  : 650 < window.innerWidth && window.innerWidth < 1250
+                  ? "4rem"
+                  : "2rem",
+            }}
+          />
+        </FormGroup>
+        {/* Chấp nhập điều khoản && ẩn danh */}
+        {user_info!==null&& <FormGroup check inline style={{ paddingTop: "2rem" }}>
+          <Input
+            type="checkbox"
+            value={isAnonymous}
+            onChange={handleAnonymous}
+          />
+          <Label check>
+            <i style={{ color: "red" }}>* </i>
+            Tôi muốn gửi ẩn danh
+          </Label>
+        </FormGroup>}
+        <br />
+        <FormGroup
+          check
+          inline
+          style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
+        >
+          <Input type="checkbox" value={isChecked} onChange={handleCheck} />
+          <Label check>
+            <i style={{ color: "red" }}>* </i>
+            Tôi hoàn toàn chịu trách nhiệm về thông tin báo báo theo{" "}
+            <a href="#">điều khoản sử dụng</a>
+          </Label>
+        </FormGroup>
+        {isChecked === true ? (
+          <FormGroup inline>
+            <Button color="primary" onClick={() => handle_submit()}>
+              <b>Gửi báo cáo</b>
+            </Button>
+          </FormGroup>
+        ) : (
+          <FormGroup inline>
+            <Button type="submit" color="primary" disabled>
+              <b>Gửi báo cáo</b>
+            </Button>
+          </FormGroup>
+        )}
+      </CardBody>
+    </Card>
+  );
+};
 
 export default SendReport;

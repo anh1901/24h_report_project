@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { Button } from "reactstrap";
-import DataTable from "./components/Data/DataTable";
+import UserTable from "../components/UserTables/UserTable";
 
 class Users extends Component {
   render() {
     return (
-      <div className="animated fadeIn">
-        <Button onClick={() => {}} color="primary">
+      <div className="animated fadeIn pl-3 pr-3 pt-2">
+        <Button onClick={() => {}} color="primary" className="mb-3">
           <i className="icon-plus"> </i>
-          <b> Create User</b>
+          <b>Tạo người dùng</b>
         </Button>
-        <DataTable />
+        <UserTable/>
       </div>
     );
   }

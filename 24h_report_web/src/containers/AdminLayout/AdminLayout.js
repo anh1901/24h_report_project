@@ -23,8 +23,11 @@ import AdminFooter from "./AdminFooter";
 
 const AdminLayout = (props) => {
   const { history } = props;
-  const user_info = localStorage.getItem("user_info");
-  if (!user_info) history.push("/login");
+  const user_info = JSON.parse(localStorage.getItem("user_info"));
+
+  // If normal user want to access the admin page redirect to login
+  if (user_info === null || user_info.roleId === 1) history.push("/login");
+
   return (
     <div className="app">
       <AppHeader fixed>
@@ -43,7 +46,9 @@ const AdminLayout = (props) => {
           <Container fluid>
             <Switch>
               {routes.map((route, idx) => {
-                return route.component && user_info ? (
+                return route.component &&
+                  user_info !== null &&
+                  user_info.roleId !== 1 ? (
                   <Route
                     key={idx}
                     path={route.path}

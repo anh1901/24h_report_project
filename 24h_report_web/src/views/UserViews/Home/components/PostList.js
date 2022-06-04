@@ -125,7 +125,7 @@ export default function PostList() {
               ) : (
                 <div className="col ml-100">
                   <Row className="d-flex justify-content-center">
-                    <span className="h5 text-primary">Đang tải dữ liệu</span>
+                    <span className="h5 text-primary">Không có dữ liệu</span>
                     <div
                       class="spinner-grow spinner-grow-sm text-primary ml-1"
                       role="status"

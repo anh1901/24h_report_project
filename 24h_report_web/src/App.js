@@ -53,7 +53,10 @@ class App extends Component {
           />
           <Route path="/dashboard" name="Dashboard" component={AdminLayout} />
           <Route path="/users" name="Users" component={AdminLayout} />
-          <Route path="/reports" name="Reports" component={AdminLayout} />
+          <Route path="/reports/new" name="New Reports" component={AdminLayout} />
+          <Route path="/reports/pending" name="Pending Reports" component={AdminLayout} />
+          <Route path="/reports/approved" name="Approved Reports" component={AdminLayout} />
+          <Route path="/reports/denied" name="Denied Reports" component={AdminLayout} />
           <Route path="/posts" name="Posts" component={AdminLayout} />
 
           {/*  */}
