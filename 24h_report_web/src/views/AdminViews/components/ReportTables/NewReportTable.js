@@ -95,7 +95,7 @@ const NewReportTable = () => {
     try {
       const param = { id: id };
       const response = await reportApi.find(param);
-      setDetails(response[0]);
+      setDetails(response);
       
     } catch (e) {
       alert(e.message);
