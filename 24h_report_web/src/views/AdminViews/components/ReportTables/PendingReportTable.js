@@ -6,6 +6,7 @@ import updateReportApi from "../../../../api/updateReportApi";
 import reportApi from "../../../../api/reportApi";
 import { Button, Col, Row } from "react-bootstrap";
 import { CModal, CModalBody, CModalFooter, CModalHeader, CSmartTable } from "@coreui/react-pro";
+import { Markup } from "interweave";
 
 //
 const PendingReportTable = () => {
@@ -140,7 +141,7 @@ const PendingReportTable = () => {
               <b>Thời gian: </b>{details.timeFraud}
               <br />
               <b>Chi tiết: </b>
-              {details.description}
+              <Markup content={details.description} />
             </Col>
             </Row>
          

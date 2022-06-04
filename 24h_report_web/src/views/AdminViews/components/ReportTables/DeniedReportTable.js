@@ -5,6 +5,7 @@ import "react-bootstrap-table/dist//react-bootstrap-table-all.min.css";
 import reportApi from "../../../../api/reportApi";
 import {  Button, Col, Row } from "react-bootstrap";
 import {  CModal, CModalBody, CModalFooter, CModalHeader, CSmartTable } from "@coreui/react-pro";
+import { Markup } from "interweave";
 
 //
 const DeniedReportTable = () => {
@@ -83,7 +84,7 @@ const DeniedReportTable = () => {
     try {
       const param = { id: id };
       const response = await reportApi.find(param);
-      setDetails(response[0]);
+      setDetails(response);
       
     } catch (e) {
       alert(e.message);
@@ -128,7 +129,7 @@ const DeniedReportTable = () => {
               <b>Thời gian: </b>{details.timeFraud}
               <br />
               <b>Chi tiết: </b>
-              {details.description}
+              <Markup content={details.description} />
             </Col>
             </Row>
          

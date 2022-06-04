@@ -89,8 +89,8 @@ export default {
       icon: "icon-pencil",
     },
     {
-      name: "Bài viết nháp",
-      url: "/crafted-posts",
+      name: "Bài viết của tôi",
+      url: "/my-posts",
       icon: "icon-pencil",
     },
     {

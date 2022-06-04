@@ -30,7 +30,7 @@ const SendReport = (props) => {
   const [text, setText] = useState("Viết ở đây");
   const [address, setAddress] = useState("");
   const [isChecked, setIsCheck] = useState(false);
-  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [isAnonymous, setIsAnonymous] = useState(true);
   const { state, onCitySelect, onDistrictSelect, onWardSelect } =
     useLocationForm(true);
 
@@ -61,9 +61,15 @@ const SendReport = (props) => {
       ["clean"], // remove formatting button
     ],
   };
+  const handleEditor=(editor)=>{
+    console.log('background', editor);
+    setText(editor);
+  }
   const handle_submit = async () => {
     try {
+      const userID=localStorage.getItem('user_info');
       const params = {
+        userID: isAnonymous?null:(userID!==null ? JSON.parse(userID):null),
         location:
           address +
           ", " +
@@ -181,6 +187,7 @@ const SendReport = (props) => {
         <FormGroup>
           <ReactQuill
             value={text}
+            onChange={handleEditor}
             modules={modules}
             style={{
               height: "20rem",

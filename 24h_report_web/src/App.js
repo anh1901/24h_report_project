@@ -58,7 +58,7 @@ class App extends Component {
           <Route path="/reports/approved" name="Approved Reports" component={AdminLayout} />
           <Route path="/reports/denied" name="Denied Reports" component={AdminLayout} />
           <Route path="/create-post" name="Create Post" component={AdminLayout} />
-          <Route path="/crafted-posts" name="Crafted Posts" component={AdminLayout} />
+          <Route path="/my-posts" name="My Posts" component={AdminLayout} />
           <Route path="/published-posts" name="Published Posts" component={AdminLayout} />
           <Route path="/unpublished-posts" name="Unpublished Posts" component={AdminLayout} />
           <Route path="/my-tasks" name="My Tasks" component={AdminLayout} />

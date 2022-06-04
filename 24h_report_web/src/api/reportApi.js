@@ -6,12 +6,12 @@ class ReportApi {
     return axiosClient.get(url,  params );
   };
   getByStatus = (params) => {
-    console.log(params.status);
     const url = "/Report?status=" + params.status;
     return axiosClient.get(url);
   };
   send = (params) => {
     const url = "/Report";
+    console.log(params);
     return axiosClient.post(url, params);
   };
   find = (params) => {

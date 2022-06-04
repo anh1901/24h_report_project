@@ -3,23 +3,25 @@ import "@coreui/coreui-pro/dist/css/coreui.min.css";
 import "react-bootstrap-table/dist//react-bootstrap-table-all.min.css";
 
 import { Button, Row } from "react-bootstrap";
-import {  CModal, CModalBody, CModalHeader, CSmartTable } from "@coreui/react-pro";
+import {  CBadge, CModal, CModalBody, CModalHeader, CSmartTable } from "@coreui/react-pro";
+import postApi from "../../../../api/postApi";
+
 
 //
-const PostTable = () => {
+const PublishedPostTable = () => {
   const [posts, setPosts] = useState();
   async function loadPosts() {
     try {
-      const param = {};
-      const response = await userApi.getAll(param);
-      setUsers(response);
+      const param = {Status:3};//Crafted only
+      const response = await postApi.getByStatus(param);
+      setPosts(response);
     } catch (e) {
       alert(e.message);
     }
   }
   useEffect(() => {
-    loadUsers();
-  }, [loadUsers]);
+    loadPosts();
+  }, [loadPosts]);
   //
   const [details, setDetails] = useState(null);
   const [visibleModal, setVisibleModal] = useState(false)
@@ -32,16 +34,20 @@ const PostTable = () => {
       _props: { className: "fw-semibold" },
     },
     {
-      key: "email",
+      key: "title",
       _style: { width: "20%" },
       _props: { className: "fw-semibold" },
     },
     {
-      key: "role",
+      key: "description",
       _style: { width: "20%" },
       _props: { className: "fw-semibold" },
     },
-    
+    {
+      key: "status",
+      _style: { width: "20%" },
+      _props: { className: "fw-semibold" },
+    },
     {
       key: "show_details",
       label: "Options",
@@ -51,26 +57,23 @@ const PostTable = () => {
       _props: { className: "fw-semibold" },
     },
   ];
-
-  const getBadge = (role) => {
-    switch (role) {
-      case "New":
-        return "success";
-      case "Pending":
-        return "warning";
-      case "Approved":
+  const getBadge = (status) => {
+    switch (status) {
+      case "Crafted":
         return "primary";
-      case "Denied":
-        return "danger";
+      case "Hidden":
+        return "warning";
+      case "Public":
+        return "success";
       default:
         return "secondary";
     }
   };
-  const toggleDetails = async(email) => {
+  const toggleDetails = async(id) => {
     setVisibleModal(!visibleModal)
     try {
-      const param = { email:email };
-      const response = await userApi.getByEmail(param);
+      const param = { id:id };
+      const response = await postApi.getById(param);
       setDetails(response);
       
     } catch (e) {
@@ -87,12 +90,17 @@ const PostTable = () => {
     {details!==null?<>
       <CModalBody>
             
-          <b>Email: </b>{details.email}
+          <b>PostId: </b>{details.postId}
           <br />
-          <b>Password: </b>{details.password}
+          <b>Title: </b>{details.title}
           <br />
-          <b>Role: </b>
-          {details.role.roleName}
+          <b>Phân loại: </b>
+          {details.category.type}
+          <br/>
+          <b>Ngày được tạo: </b>{details.createTime}
+          <br />
+          <b>Nội dung: </b>{details.description}
+          <br />
         </CModalBody>
         </>
         : <Row className="d-flex justify-content-center">
@@ -102,7 +110,7 @@ const PostTable = () => {
         </Row>}
       
     </CModal>
-      {users !== null && (
+      {posts !== null && (
         <CSmartTable
           noItemsLabel="Không có dữ liệu..."
           draggable
@@ -112,7 +120,7 @@ const PostTable = () => {
           columns={columns}
           columnFilter
           columnSorter
-          items={users}
+          items={posts}
           itemsPerPageSelect
           itemsPerPage={10}
           pagination
@@ -120,26 +128,18 @@ const PostTable = () => {
             index: (item) => {
               return (<td className="py-2">{item._id}</td>);
             },
-            
-            role: (item) => {
-              switch(item.role.roleName){
-                case "User":
-                return <td className="py text-primary">User</td>;
-                case "Staff":
-                return <td className="py text-secondary">Staff</td>;
-                case "Editor":
-                return <td className="py text-danger">Editor</td>;
-                case "Editor Manager":
-                return <td className="py text-info">Editor Manager</td>;
-                case "Admin":
-                return <td className="py text-warning">Admin</td>;
-                default : return <td className="py">Khác</td>;
-              }
+            description: (item) => {
+                return (<td className="py">{JSON.stringify(item.description).length>100?JSON.stringify(item.description).substring(0,99)+"..." :item.description}</td>);
             },
+            status:  (item) => (
+              <td>
+                <CBadge color={getBadge(item.status.trim())}>{item.status}</CBadge>
+              </td>
+            ),
             show_details: (item) => {
               return (
                 <td className="py-2">
-                  <Button onClick={() => toggleDetails(item.email)}>Chi tiết</Button>
+                  <Button onClick={() => toggleDetails(item.postId)}>Chi tiết</Button>
                 </td>
               );
             },
@@ -156,4 +156,4 @@ const PostTable = () => {
   );
 };
 
-export default PostTable;
+export default PublishedPostTable;

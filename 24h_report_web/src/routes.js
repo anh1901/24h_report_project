@@ -54,7 +54,19 @@ const DeniedReports = Loadable({
   loading: Loading,
 });
 const Posts = Loadable({
-  loader: () => import("./views/AdminViews/Posts"),
+  loader: () => import("./views/AdminViews/Posts/MyPosts"),
+  loading: Loading,
+});
+const MyPosts = Loadable({
+  loader: () => import("./views/AdminViews/Posts/MyPosts"),
+  loading: Loading,
+});
+const PublishedPosts = Loadable({
+  loader: () => import("./views/AdminViews/Posts/PublishedPosts"),
+  loading: Loading,
+});
+const UnPublishedPosts = Loadable({
+  loader: () => import("./views/AdminViews/Posts/UnPublishedPosts"),
   loading: Loading,
 });
 const PostDetail = Loadable({
@@ -123,22 +135,22 @@ const routes = [
     component: DeniedReports,
   },
   {
-    path: "/crafted-posts",
-    name: "Crafted Posts",
+    path: "/my-posts",
+    name: "My Posts",
     role: ["Admin", "Editor", "Editor Manager"],
-    component: Posts,
+    component: MyPosts,
   },
   {
     path: "/published-posts",
     name: "Published posts",
     role: ["Admin", "Editor", "Editor Manager"],
-    component: Posts,
+    component: PublishedPosts,
   },
   {
     path: "/unpublished-posts",
     name: "Unpublished Posts",
     role: ["Admin", "Editor", "Editor Manager"],
-    component: Posts,
+    component: UnPublishedPosts,
   },
   {
     path: "/create-post",

@@ -6,6 +6,7 @@ import updateReportApi from "../../../../api/updateReportApi";
 import { Button, Col, Row } from "react-bootstrap";
 import {  CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CSmartTable } from "@coreui/react-pro";
 import reportApi from "../../../../api/reportApi";
+import { Markup } from "interweave";
 
 //
 const NewReportTable = () => {
@@ -140,7 +141,8 @@ const NewReportTable = () => {
               <b>Thời gian: </b>{details.timeFraud}
               <br />
               <b>Chi tiết: </b>
-              {details.description}
+              <Markup content={details.description} />
+              
             </Col>
             </Row>
          
