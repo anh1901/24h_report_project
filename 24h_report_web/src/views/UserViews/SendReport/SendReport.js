@@ -58,7 +58,10 @@ const SendReport = (props) => {
       [{ color: [] }, { background: [] }], // dropdown with defaults from theme
       [{ font: [] }],
       [{ align: [] }],
-      ["clean"], // remove formatting button
+      ["clean"], 
+      ["link"],
+      ["image"],
+      ["video"],// remove formatting button
     ],
   };
   const handleEditor=(editor)=>{
