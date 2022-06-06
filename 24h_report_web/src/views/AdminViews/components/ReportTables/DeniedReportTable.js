@@ -79,11 +79,15 @@ const DeniedReportTable = () => {
         return "secondary";
     }
   };
+  const [editedDescription, setEditedDescription] = useState(null);
   const toggleDetails = async(id) => {
     setVisibleModal(!visibleModal)
     try {
       const param = { id: id };
       const response = await reportApi.find(param);
+      const metaDescription=JSON.stringify(response.description).replace("<img","<img style=\"width:55rem;height:30rem;padding-left:2rem;padding-right:2rem\"").replace("<iframe","<iframe style=\"width:55rem;height:30rem;padding-left:2rem;padding-right:2rem\"").replace(/\\/g, "");
+      const description =metaDescription.substring(1, metaDescription.length-1);
+      setEditedDescription(description);
       setDetails(response);
       
     } catch (e) {
@@ -100,7 +104,7 @@ const DeniedReportTable = () => {
     {details!==null?<>
       <CModalBody>
           <Row>
-            <Col>
+            {/* <Col>
               <p className="text-muted">
               Hình ảnh:
               <br />
@@ -122,15 +126,16 @@ const DeniedReportTable = () => {
                 <p>Không có video</p>
             )}
           </p>
-            </Col>
+            </Col> */}
             <Col>
                 <b>Địa điểm: </b>{details.location}
               <br />
               <b>Thời gian: </b>{details.timeFraud}
               <br />
               <b>Chi tiết: </b>
-              <Markup content={details.description} />
+              <Markup content={editedDescription} allowAttributes allowElements/>
             </Col>
+            
             </Row>
          
         </CModalBody>
@@ -138,7 +143,7 @@ const DeniedReportTable = () => {
         
       </CModalFooter></>
         : <Row className="d-flex justify-content-center">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-primary mb-5 mt-5" role="status">
             <span class="sr-only">Loading...</span>
           </div>
         </Row>}
@@ -163,7 +168,7 @@ const DeniedReportTable = () => {
               return (<td className="py-2">{item._id}</td>);
             },
             description: (item) => {
-              return (<td className="py">{JSON.stringify(item.description).length>50?JSON.stringify(item.description).substring(0,49)+"..." :item.description}</td>);
+              return (<td className="py" style={{textOverflow:"ellipsis", overflow:"hidden",whiteSpace:"nowrap",maxWidth:"20rem"}}><Markup content={item.description} allowAttributes allowElements blockList={["img","iframe"]} noHtml={true}/></td>);
             },
             categoryId: (item) => {
               switch(item.categoryId){

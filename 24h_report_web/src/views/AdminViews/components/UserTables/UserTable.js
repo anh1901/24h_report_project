@@ -53,20 +53,6 @@ const UserTable = () => {
     },
   ];
 
-  const getBadge = (role) => {
-    switch (role) {
-      case "New":
-        return "success";
-      case "Pending":
-        return "warning";
-      case "Approved":
-        return "primary";
-      case "Denied":
-        return "danger";
-      default:
-        return "secondary";
-    }
-  };
   const toggleDetails = async(email) => {
     setVisibleModal(!visibleModal)
     try {
@@ -97,7 +83,7 @@ const UserTable = () => {
         </CModalBody>
         </>
         : <Row className="d-flex justify-content-center">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-primary mb-5 mt-5" role="status">
             <span class="sr-only">Loading...</span>
           </div>
         </Row>}

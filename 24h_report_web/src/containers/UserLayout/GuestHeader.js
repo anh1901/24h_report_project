@@ -52,7 +52,8 @@ class GuestHeader extends Component {
           {/* Login button */}
           <Button
             block
-            color="primary"
+            style={{backgroundColor: '#2f80ed', color:"white"}}
+
             onClick={() => (window.location.href = "/login")}
           >
             Đăng nhập ngay

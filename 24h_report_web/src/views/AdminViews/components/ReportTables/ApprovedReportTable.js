@@ -79,11 +79,15 @@ const ReportTableNew = () => {
         return "secondary";
     }
   };
+  const [editedDescription, setEditedDescription] = useState(null);
   const toggleDetails = async(id) => {
     setVisibleModal(!visibleModal)
     try {
       const param = { id: id };
       const response = await reportApi.find(param);
+      const metaDescription=JSON.stringify(response.description).replace("<img","<img style=\"width:55rem;height:30rem;padding-left:2rem;padding-right:2rem\"").replace("<iframe","<iframe style=\"width:55rem;height:30rem;padding-left:2rem;padding-right:2rem\"").replace(/\\/g, "");
+      const description =metaDescription.substring(1, metaDescription.length-1);
+      setEditedDescription(description);
       setDetails(response);
       
     } catch (e) {
@@ -100,36 +104,14 @@ const ReportTableNew = () => {
     {details!==null?<>
       <CModalBody>
           <Row>
-            <Col>
-              <p className="text-muted">
-              Hình ảnh:
-              <br />
-              {details.image!=='string' ? (
-                <img
-                  src={details.image}
-                  style={{ height: "20rem", width: "30rem" }}
-                ></img>
-              ) : (
-                <p>Không có ảnh</p>
-              )}
-            </p>
-            <p className="text-muted">
-              Video:
-              <br />
-              {details.video!=='string' ? (
-                <source src={details.video} type="video/mp4" />
-              ) : (
-                <p>Không có video</p>
-            )}
-          </p>
-            </Col>
+            
             <Col>
                 <b>Địa điểm: </b>{details.location}
               <br />
               <b>Thời gian: </b>{details.timeFraud}
               <br />
               <b>Chi tiết: </b>
-              <Markup content={details.description} />
+              <Markup content={editedDescription} allowAttributes allowElements/>
             </Col>
             </Row>
          
@@ -137,11 +119,11 @@ const ReportTableNew = () => {
         <CModalFooter>
        
       </CModalFooter></>
-        : <Row className="d-flex justify-content-center">
-          <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        </Row>}
+        :  <Row className="d-flex justify-content-center">
+        <div class="spinner-border text-primary mb-5 mt-5" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </Row>}
       
     </CModal>
       {reports !== null && (
@@ -166,7 +148,7 @@ const ReportTableNew = () => {
               return <td className="py">{JSON.stringify(item.timeFraud).replace("T"," ").substring(1,JSON.stringify(item.timeFraud).length-1 )}</td>;
             },
             description: (item) => {
-              return (<td className="py">{JSON.stringify(item.description).length>50?JSON.stringify(item.description).substring(0,49)+"..." :item.description}</td>);
+              return (<td className="py" style={{textOverflow:"ellipsis", overflow:"hidden",whiteSpace:"nowrap",maxWidth:"20rem"}}><Markup content={item.description} allowAttributes allowElements blockList={["img","iframe"]} noHtml={true}/></td>);
             },
             categoryId: (item) => {
               switch(item.categoryId){

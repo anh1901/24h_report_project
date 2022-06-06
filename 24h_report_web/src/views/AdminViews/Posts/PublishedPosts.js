@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import EditorPostTable from "../components/PostTables/EditorPostTable";
 import PublishedPostTable from "../components/PostTables/PublishedPostTable";
 
 class PublishedPosts extends Component {

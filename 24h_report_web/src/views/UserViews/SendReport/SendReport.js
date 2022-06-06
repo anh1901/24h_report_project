@@ -19,6 +19,9 @@ import makeAnimated from "react-select/animated";
 import useLocationForm from "./useLocationForm";
 import Select from "react-select";
 import reportApi from "../../../api/reportApi";
+import TimePicker from "react-time-picker";
+var DatePicker = require("reactstrap-date-picker");
+
 
 const animatedComponents = makeAnimated();
 //testing
@@ -31,6 +34,9 @@ const SendReport = (props) => {
   const [address, setAddress] = useState("");
   const [isChecked, setIsCheck] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(true);
+  const [value, setValue] = useState(new Date().toISOString());
+  const [formattedValue, setFormatedValue] = useState();
+  const [time, setTime] = useState(new Date());
   const { state, onCitySelect, onDistrictSelect, onWardSelect } =
     useLocationForm(true);
 
@@ -64,6 +70,14 @@ const SendReport = (props) => {
       ["video"],// remove formatting button
     ],
   };
+  const handleChange=(value, formattedValue)=> {
+    setValue(value);
+    setFormatedValue(formattedValue);
+  }
+  const onTimeChange=(value)=>{
+    setTimeout(value);
+    console.log(value);
+  }
   const handleEditor=(editor)=>{
     console.log('background', editor);
     setText(editor);
@@ -81,7 +95,7 @@ const SendReport = (props) => {
           state.selectedDistrict.label +
           ", " +
           state.selectedWard.label,
-        timeFraud: new Date().toLocaleString(),
+        timeFraud: value+" "+time,
         description: text,
         video: "not yet",
         image: "not yet",
@@ -172,6 +186,28 @@ const SendReport = (props) => {
               />
             </div>
           </Col>
+        </FormGroup>
+        {/* date time picker */}
+        <FormGroup row>
+          <Col md="2">
+            <Label for="file">Thời điểm:</Label>
+          </Col>
+          <Col md="2">
+            <DatePicker id="example-datepicker" value = {value} onChange= {(v,f) =>handleChange(v, f)} />
+          </Col>
+          <Col md="2">
+          <TimePicker
+            onChange={setTime}
+            value={time}
+            maxTime={new Date()}
+            required={true}
+            style={{color: 'white'}}
+          />
+          </Col>
+          <FormText>
+            Lưu ý:{" "}
+            <i>Thời điểm xảy ra vụ việc</i>
+          </FormText>
         </FormGroup>
         {/* File Upload */}
         <FormGroup row>

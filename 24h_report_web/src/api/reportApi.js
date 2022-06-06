@@ -6,7 +6,7 @@ class ReportApi {
     return axiosClient.get(url,  params );
   };
   getByStatus = (params) => {
-    const url = "/Report?status=" + params.status;
+    const url = "/Report?Status=" + params.status;
     return axiosClient.get(url);
   };
   send = (params) => {

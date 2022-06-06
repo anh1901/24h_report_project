@@ -10,7 +10,8 @@ import "@coreui/icons/css/coreui-icons.min.css";
 import "font-awesome/css/font-awesome.min.css";
 // Import Simple Line Icons Set
 import "simple-line-icons/css/simple-line-icons.css";
-
+import "react-time-picker/dist/TimePicker.css";
+import "react-clock/dist/Clock.css";
 // Import Main styles for this application
 import "./scss/style.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
