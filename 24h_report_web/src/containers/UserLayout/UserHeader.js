@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Nav, NavItem, NavLink } from "reactstrap";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 import {
   AppAsideToggler,
   AppNavbarBrand,
@@ -34,20 +33,18 @@ class UserHeader extends Component {
   }
 
   render() {
-    const { children, ...attributes } = this.props;
-
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
           full={{
-            src: "https://upload.wikimedia.org/wikipedia/vi/6/6b/Logo_trang_24h.png",
+            src: "https://dewey.tailorbrands.com/production/brand_version_mockup_image/209/7405193209_dafd8c3c-9a54-4e9e-87b7-9b4257430f5e.png?cb=1654526260",
             width: 120,
             height: 50,
             alt: "24h Report Logo",
           }}
           minimized={{
-            src: "https://upload.wikimedia.org/wikipedia/vi/6/6b/Logo_trang_24h.png",
+            src: "https://dewey.tailorbrands.com/production/brand_version_mockup_image/209/7405193209_dafd8c3c-9a54-4e9e-87b7-9b4257430f5e.png?cb=1654526260",
             width: 30,
             height: 30,
             alt: "24h Report Logo",

@@ -32,8 +32,8 @@ export default function PostList() {
               </div>
               <div class="col-6 text-right align-self-center">
                 {" "}
-                <a href="/viewAll/TodayPost" class="see_all mb20">
-                  Xem tất cả
+                <a href="/viewAll/TodayPost" className="see_all mb20">
+                  <b>Xem tất cả</b>
                 </a>
               </div>
             </div>
@@ -112,10 +112,10 @@ export default function PostList() {
                         </div>
                         <br />
                         <p>
-                          {post.description.length > limit * 5
-                            ? post.description.substring(0, limit * 5 - 1) +
+                          {post.subTitle.length > limit * 5
+                            ? post.subTitle.substring(0, limit * 5 - 1) +
                               "..."
-                            : post.description}
+                            : post.subTitle}
                         </p>
 
                         <br />
@@ -124,7 +124,7 @@ export default function PostList() {
                 )
               ) : (
                 <div className="col ml-100">
-                  <Row className="d-flex justify-content-center">
+                  <Row className="d-flex justify-content-center mt-5">
                     <span className="h5 text-primary">Không có dữ liệu</span>
                     <div
                       class="spinner-grow spinner-grow-sm text-primary ml-1"
@@ -150,7 +150,7 @@ export default function PostList() {
               <div class="col-6 text-right align-self-center">
                 {" "}
                 <a href="#" class="see_all mb20">
-                  Xem tất cả
+                  <b>Xem tất cả</b>
                 </a>
               </div>
             </div>
@@ -191,7 +191,7 @@ export default function PostList() {
               <div class="col-6 text-right align-self-center">
                 {" "}
                 <a href="#" class="see_all mb20">
-                  Xem tất cả
+                  <b>Xem tất cả</b>
                 </a>
               </div>
             </div>
@@ -237,7 +237,7 @@ export default function PostList() {
               <div class="col-6 text-right align-self-center">
                 {" "}
                 <a href="#" class="see_all mb20">
-                  Xem tất cả
+                  <b>Xem tất cả</b>
                 </a>
               </div>
             </div>
@@ -331,7 +331,7 @@ export default function PostList() {
                 <div class="col-6 text-right align-self-center">
                   {" "}
                   <a href="#" class="see_all mb20">
-                    Xem tất cả
+                    <b>Xem tất cả</b>
                   </a>
                 </div>
               </div>

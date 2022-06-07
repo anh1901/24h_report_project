@@ -22,13 +22,13 @@ class GuestHeader extends Component {
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
           full={{
-            src: "https://upload.wikimedia.org/wikipedia/vi/6/6b/Logo_trang_24h.png",
-            width: 120,
-            height: 50,
+            src: "https://dewey.tailorbrands.com/production/brand_version_mockup_image/209/7405193209_dafd8c3c-9a54-4e9e-87b7-9b4257430f5e.png?cb=1654526260",
+            width: 110,
+            height: 35,
             alt: "24h Report Logo",
           }}
           minimized={{
-            src: "https://upload.wikimedia.org/wikipedia/vi/6/6b/Logo_trang_24h.png",
+            src: "https://dewey.tailorbrands.com/production/brand_version_mockup_image/209/7405193209_dafd8c3c-9a54-4e9e-87b7-9b4257430f5e.png?cb=1654526260",
             width: 30,
             height: 30,
             alt: "24h Report Logo",
@@ -48,19 +48,19 @@ class GuestHeader extends Component {
         </Nav>
         {/* Search bar */}
         <Search />
-        <Nav className="d-md-down-none" navbar>
+        <Nav className="d-md-down-none pr-4 pl-2" navbar>
           {/* Login button */}
           <Button
             block
-            style={{backgroundColor: '#2f80ed', color:"white"}}
+            style={{ background: "linear-gradient(to right,#56CCF2,#2F80ED)", color: "white"}}
 
             onClick={() => (window.location.href = "/login")}
           >
             Đăng nhập ngay
           </Button>
         </Nav>
-        <AppAsideToggler className="d-md-down-none" />
-        {/*<AppAsideToggler className="d-lg-none" mobile />*/}
+        {/* <AppAsideToggler className="d-md-down-none" /> */}
+        {/* <AppAsideToggler className="d-lg-none" mobile /> */}
       </React.Fragment>
     );
   }

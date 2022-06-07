@@ -69,6 +69,10 @@ const UnPublishedPosts = Loadable({
   loader: () => import("./views/AdminViews/Posts/UnPublishedPosts"),
   loading: Loading,
 });
+const CreatePost = Loadable({
+  loader: () => import("./views/AdminViews/Posts/CreatePost"),
+  loading: Loading,
+});
 const PostDetail = Loadable({
   loader: () => import("./views/UserViews/Post/PostDetail"),
   loading: Loading,
@@ -156,7 +160,7 @@ const routes = [
     path: "/create-post",
     name: "Create Post",
     role: ["Admin", "Editor", "Editor Manager"],
-    component: Posts,
+    component: CreatePost,
   },
   {
     path: "/my-tasks",

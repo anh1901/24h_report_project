@@ -22,12 +22,12 @@ export function LikeShareSection() {
     <Header>
       <Row>
         <Col xs="3" md="3" sm="3" lg="3" xl="3">
-          <Button color="primary" href="#">
-            <i className="icon-like" /> Thích <b>123</b>
+          <Button style={{ background: "linear-gradient(to right,#56CCF2,#2F80ED)"}} className="text-white" href="#">
+            <i className="icon-like"/> Thích <b>123</b>
           </Button>
         </Col>
         <Col xs="3" md="3" sm="3" lg="3" xl="3" style={styles}>
-          <h4>Chia sẽ:</h4>
+          <h4>Chia sẻ:</h4>
         </Col>
         <Col xs="2" md="2" sm="2" lg="2" xl="2" style={styles}>
           <ShareLink href="#">

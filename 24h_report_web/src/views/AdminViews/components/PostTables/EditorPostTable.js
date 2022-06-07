@@ -95,8 +95,8 @@ const EditorPostTable = () => {
     
   })
   return (
-    <>
-    <CModal size="lg" alignment="center" visible={visibleModal} onClose={() => (setVisibleModal(false),setDetails(null))}>
+    <div>
+    <CModal size="lg" alignment="center" visible={visibleModal} onClose={() => (setVisibleModal(false) , setDetails(null))}>
     <CModalHeader closeButton>Chi tiết người dung</CModalHeader>
     {details!==null?<>
       <CModalBody>
@@ -167,7 +167,7 @@ const EditorPostTable = () => {
         />
       )}
       
-    </>
+    </div>
   );
 };
 

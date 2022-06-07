@@ -12,7 +12,7 @@ import "swiper/modules/pagination/pagination.scss"; // Pagination module
 import postApi from "../../../../api/postApi";
 import { Link } from "react-router-dom";
 
-const limit = 25;
+const limit = 50;
 export default function PostCarousel() {
   SwiperCore.use([Autoplay]);
   const [posts, setPosts] = useState([]);
@@ -71,7 +71,7 @@ export default function PostCarousel() {
                             display: "inline-block",
                           }}
                           class="img-responsive"
-                          height="600"
+                          height="620"
                           src={
                             post.image.includes("http")
                               ? post.image
@@ -88,7 +88,7 @@ export default function PostCarousel() {
                       }}
                     >
                       <Link to={`/postDetail/${post.postId}`}>
-                        <a class="p-1 badge badge-primary rounded-0" href="#">
+                        <a class="p-1 badge rounded-0" style={{ background: "linear-gradient(to right,#56CCF2,#2F80ED)", color: "white"}} href="#">
                           {post.category.type}
                         </a>
                         <h3 class=" h3 text-white my-1">
@@ -98,9 +98,9 @@ export default function PostCarousel() {
                         </h3>
                       </Link>
                       <h6 class=" h6 text-white my-1">
-                        {post.description.length > limit * 6
-                          ? post.description.substring(0, limit * 6 - 1) + "..."
-                          : post.description}
+                        {post.subTitle.length > limit * 6
+                          ? post.subTitle.substring(0, limit * 6 - 1) + "..."
+                          : post.subTitle}
                       </h6>
                       <div class="news-meta ">
                         <Row>
@@ -149,7 +149,7 @@ export default function PostCarousel() {
             )
         )
       ) : (
-        <Row className="d-flex justify-content-center">
+        <Row className="d-flex justify-content-center mt-5">
           <div class="spinner-border text-primary" role="status" />
         </Row>
       )}

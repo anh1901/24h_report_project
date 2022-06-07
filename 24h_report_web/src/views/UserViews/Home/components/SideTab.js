@@ -11,7 +11,7 @@ export default function SideTab() {
           title="Xu hướng"
           style={{
             overflow: "auto",
-            height: "45rem",
+            height: "46rem",
             scrollBehavior: "smooth",
           }}
         >

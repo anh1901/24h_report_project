@@ -5,7 +5,7 @@ import { Row } from "reactstrap";
 import postApi from "../../../../api/postApi";
 import { Link } from "react-router-dom";
 
-const limit = 25;
+const limit = 45;
 export default function LastestPost() {
   const [posts, setPosts] = useState([]);
   const fetchPostList = async () => {
@@ -54,14 +54,14 @@ export default function LastestPost() {
                         background: "rgba(0, 0, 0, 0.5)",
                       }}
                     >
-                      <a class="p-1 badge badge-primary rounded-0" href="#">
+                      <a class="p-1 badge rounded-0" style={{ background: "linear-gradient(to right,#56CCF2,#2F80ED)", color: "white"}} href="#">
                         {post.category.type}
                       </a>
 
                       <Link to={`/postDetail/${post.postId}`}>
                         <p class="text-white my-1">
-                          {post.title.length > limit * 2
-                            ? post.title.substring(0, limit * 2 - 1) + "..."
+                          {post.title.length > limit 
+                            ? post.title.substring(0, limit  - 1) + "..."
                             : post.title}
                         </p>
                       </Link>
@@ -74,7 +74,7 @@ export default function LastestPost() {
         ))
       ) : (
         <Row className="d-flex justify-content-center">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-primary mt-5 mt-5" role="status">
             <span class="sr-only">Loading...</span>
           </div>
         </Row>

@@ -65,7 +65,7 @@ const fadeIn = keyframes`
 const IconCommonCss = css`
   height: 1.25rem;
   width: 1.25rem;
-  fill: #2f80ed;
+  fill: #2F80ED;
   z-index: 10;
   animation: ${fadeIn} 1s linear;
 `;
@@ -79,6 +79,6 @@ export const IconRightArrow = styled(ArrowRightIcon)`
   align-self: flex-end;
   cursor: pointer;
   &:hover {
-    fill: #393e46;
+    fill:  #2F80ED;
   }
 `;

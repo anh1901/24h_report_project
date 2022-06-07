@@ -57,7 +57,7 @@ export const Text = styled.p`
 `;
 export const PostData = styled.div`
   background-color: #fff;
-  box-shadow: 5px 5px 5px grey;
+  backdrop-filter: blur(5px);
   width: 65vw;
   height: 100%;
   display: block;
@@ -76,9 +76,9 @@ export const PostData = styled.div`
   }
   h3 {
     font-size: 3rem;
-    background: linear-gradient(to right, #803bec 30%, #1b1b1b 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  
+    color:black!;
+    font-weight: bold;
   }
   @media (max-width: 1500px) {
     width: 70vw;
@@ -146,7 +146,7 @@ export const PostData = styled.div`
 `;
 export const CommentArea = styled.div`
   background-color: #fff;
-  box-shadow: 5px 5px 5px grey;
+  backdrop-filter: blur(5px);
   width: 25vw;
   height: 60rem;
   display: inline-block;

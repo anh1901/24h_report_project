@@ -25,21 +25,7 @@ export class Comments extends React.Component {
           <Comment />
           <Comment />
           <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
+          
         </CommentScrollbar>
       </div>
     );

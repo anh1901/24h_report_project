@@ -77,20 +77,6 @@ const PendingReportTable = () => {
     },
   ];
 
-  const getBadge = (status) => {
-    switch (status) {
-      case "New":
-        return "success";
-      case "Pending":
-        return "warning";
-      case "Approved":
-        return "primary";
-      case "Denied":
-        return "danger";
-      default:
-        return "secondary";
-    }
-  };
   const [editedDescription, setEditedDescription] = useState(null);
   const toggleDetails = async(id) => {
     setVisibleModal(!visibleModal)
@@ -116,29 +102,6 @@ const PendingReportTable = () => {
     {details!==null?<>
       <CModalBody>
           <Row>
-            {/* <Col>
-              <p className="text-muted">
-              Hình ảnh:
-              <br />
-              {details.image!=='string' ? (
-                <img
-                  src={details.image}
-                  style={{ height: "20rem", width: "30rem" }}
-                ></img>
-              ) : (
-                <p>Không có ảnh</p>
-              )}
-            </p>
-            <p className="text-muted">
-              Video:
-              <br />
-              {details.video!=='string' ? (
-                <source src={details.video} type="video/mp4" />
-              ) : (
-                <p>Không có video</p>
-            )}
-          </p>
-            </Col> */}
             <Col>
                 <b>Địa điểm: </b>{details.location}
               <br />

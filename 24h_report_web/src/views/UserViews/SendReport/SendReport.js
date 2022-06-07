@@ -19,8 +19,8 @@ import makeAnimated from "react-select/animated";
 import useLocationForm from "./useLocationForm";
 import Select from "react-select";
 import reportApi from "../../../api/reportApi";
-import TimePicker from "react-time-picker";
-var DatePicker = require("reactstrap-date-picker");
+import {DatetimePickerTrigger} from 'rc-datetime-picker';
+import * as moment from 'moment';
 
 
 const animatedComponents = makeAnimated();
@@ -34,9 +34,8 @@ const SendReport = (props) => {
   const [address, setAddress] = useState("");
   const [isChecked, setIsCheck] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(true);
-  const [value, setValue] = useState(new Date().toISOString());
-  const [formattedValue, setFormatedValue] = useState();
-  const [time, setTime] = useState(new Date());
+  
+  const [time, setTime] = useState(moment());
   const { state, onCitySelect, onDistrictSelect, onWardSelect } =
     useLocationForm(true);
 
@@ -70,14 +69,11 @@ const SendReport = (props) => {
       ["video"],// remove formatting button
     ],
   };
-  const handleChange=(value, formattedValue)=> {
-    setValue(value);
-    setFormatedValue(formattedValue);
-  }
-  const onTimeChange=(value)=>{
-    setTimeout(value);
-    console.log(value);
-  }
+  const shortcuts = {
+    'Today': moment(),
+    'Yesterday': moment().subtract(1, 'days'),
+    'Clear': ''
+  };
   const handleEditor=(editor)=>{
     console.log('background', editor);
     setText(editor);
@@ -95,7 +91,7 @@ const SendReport = (props) => {
           state.selectedDistrict.label +
           ", " +
           state.selectedWard.label,
-        timeFraud: value+" "+time,
+        timeFraud: time,
         description: text,
         video: "not yet",
         image: "not yet",
@@ -114,6 +110,9 @@ const SendReport = (props) => {
       alert(e.message);
     }
   };
+  const handleMoment=(moment) => {
+    setTime(moment);
+  }
   const handleCheck = (event) => {
     setIsCheck(event.target.checked);
   };
@@ -132,18 +131,14 @@ const SendReport = (props) => {
       style={{ height: "auto" }}
     >
       <CardHeader>
-        Chi tiết báo cáo{" "}
         <b>
-          ----------------Đang làm tạm thời chưa xài
-          được---------------------------
+         Chi tiết báo cáo{" "}
         </b>
-        <div className="card-header-actions">
-          <small className="text-muted">Xin hãy viết đúng sự việc</small>
-        </div>
+        
       </CardHeader>
       <CardBody>
         <FormGroup row>
-          <Col md="2">
+          <Col md="1">
             <Label>Vị trí:</Label>
           </Col>
           <Col md="8">
@@ -189,29 +184,39 @@ const SendReport = (props) => {
         </FormGroup>
         {/* date time picker */}
         <FormGroup row>
-          <Col md="2">
+          <Col md="1">
             <Label for="file">Thời điểm:</Label>
           </Col>
           <Col md="2">
-            <DatePicker id="example-datepicker" value = {value} onChange= {(v,f) =>handleChange(v, f)} />
+            {/* <DatePicker showClearButton={false} maxDate={new Date().toISOString()} id="example-datepicker" value = {value} onChange= {(v,f) =>handleChange(v, f)} /> */}
+            <DatetimePickerTrigger
+              shortcuts={shortcuts} 
+              moment={time}
+              onChange={handleMoment}
+              maxDate={moment()}
+              >
+              <input className="pt-1 pb-1" type="text" value={time.format('YYYY-MM-DD HH:mm')} readOnly/>
+              <i className="icon-calendar p-2 ml-2 border"/>
+            </DatetimePickerTrigger>
+            <FormText>
+            Lưu ý:{" "}
+            <i>Thời điểm xảy ra vụ việc</i>
+          </FormText>
           </Col>
           <Col md="2">
-          <TimePicker
+          {/* <TimePicker
             onChange={setTime}
             value={time}
             maxTime={new Date()}
             required={true}
             style={{color: 'white'}}
-          />
+          /> */}
           </Col>
-          <FormText>
-            Lưu ý:{" "}
-            <i>Thời điểm xảy ra vụ việc</i>
-          </FormText>
+        
         </FormGroup>
         {/* File Upload */}
         <FormGroup row>
-          <Col md="2">
+          <Col md="1">
             <Label for="file">File đính kèm</Label>
           </Col>
           <Col>
@@ -263,18 +268,18 @@ const SendReport = (props) => {
           <Label check>
             <i style={{ color: "red" }}>* </i>
             Tôi hoàn toàn chịu trách nhiệm về thông tin báo báo theo{" "}
-            <a href="#">điều khoản sử dụng</a>
+            <a href="#" style={{ color: "#2F80ED"}}>điều khoản sử dụng</a>
           </Label>
         </FormGroup>
         {isChecked === true ? (
           <FormGroup inline>
-            <Button color="primary" onClick={() => handle_submit()}>
+            <Button style={{ background: "linear-gradient(to right,#56CCF2,#2F80ED)", color: "white"}} onClick={() => handle_submit()}>
               <b>Gửi báo cáo</b>
             </Button>
           </FormGroup>
         ) : (
           <FormGroup inline>
-            <Button type="submit" color="primary" disabled>
+            <Button style={{ background: "linear-gradient(to right,#56CCF2,#2F80ED)", color: "white"}} disabled>
               <b>Gửi báo cáo</b>
             </Button>
           </FormGroup>

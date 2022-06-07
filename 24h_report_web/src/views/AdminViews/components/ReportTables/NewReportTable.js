@@ -4,7 +4,7 @@ import "react-bootstrap-table/dist//react-bootstrap-table-all.min.css";
 
 import updateReportApi from "../../../../api/updateReportApi";
 import { Button, Col, Row } from "react-bootstrap";
-import {  CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CSmartTable } from "@coreui/react-pro";
+import {  CModal, CModalBody, CModalFooter, CModalHeader, CSmartTable } from "@coreui/react-pro";
 import reportApi from "../../../../api/reportApi";
 import { Markup } from "interweave";
 
@@ -79,20 +79,6 @@ const NewReportTable = () => {
     },
   ];
 
-  const getBadge = (status) => {
-    switch (status) {
-      case "New":
-        return "success";
-      case "Pending":
-        return "warning";
-      case "Approved":
-        return "primary";
-      case "Denied":
-        return "danger";
-      default:
-        return "secondary";
-    }
-  };
   const toggleDetails = async(id) => {
     setVisibleModal(!visibleModal)
     try {

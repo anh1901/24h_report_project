@@ -9,7 +9,7 @@ export function PostDataDetail(props) {
     try {
       await postDetailApi.getAll(props.postId).then((data) => {
         const editedDescription = JSON.stringify(data.description)
-        .replace("<img","<img style=\"width:55rem;height:30rem;padding-left:2rem;padding-right:2rem\"").replace("<iframe","<iframe style=\"width:55rem;height:30rem;padding-left:2rem;padding-right:2rem\"")
+        .replace("<img","<img style=\"width:55rem;height:30rem;padding-left:2rem;padding-bottom:2rem;padding-right:2rem;display:block\"").replace("<iframe","<iframe style=\"width:55rem;height:30rem;padding-left:2rem;padding-right:2rem\"")
         .replace(/\\n/g, "<br/>")
         .replace(/\\/g, "");
           

@@ -30,7 +30,7 @@ export function AddComments() {
           autoHeight
           placeholder="Viết bình luận của bạn"
         />
-        <FormButton type="submit" primary={true}>
+        <FormButton type="submit" style={{ background: "linear-gradient(to right,#56CCF2,#2F80ED)", color: "white"}}>
           Gửi
         </FormButton>
       </Form>
